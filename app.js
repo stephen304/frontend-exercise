@@ -21,7 +21,11 @@ var Page = {
       m('ul', [
         'Click times:',
         thinger.times.map(function(t) {
-          return m('li', t.toString())
+          return m('li', [
+            m('span', {
+              class: 'clicktime'
+            }, t.toString())
+          ])
         }),
       ]),
     ])
