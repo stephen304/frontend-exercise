@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/stephen304/frontend-exercise#readme",
   "devDependencies": {
-    "jasmine": "^3.5.0",
+    "jasmine": "^3.5.0"
   }
 }
