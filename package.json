@@ -1,0 +1,22 @@
+{
+  "name": "frontend-exercise",
+  "version": "1.0.0",
+  "description": "## Assumptions * Browser should support the localStorage API * No additional code should contaminate localStorage",
+  "main": "",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephen304/frontend-exercise.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephen304/frontend-exercise/issues"
+  },
+  "homepage": "https://github.com/stephen304/frontend-exercise#readme",
+  "devDependencies": {
+    "jasmine": "^3.5.0",
+  }
+}
