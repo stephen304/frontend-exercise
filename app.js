@@ -35,6 +35,15 @@ function Thinger() {
     // Store updated data in localstorage
     localStorage.setItem('clickDetectorData', JSON.stringify(thinger.data));
   }
+  thinger.clear = function() {
+    // Reset session data to initial state
+    thinger.data = {
+      count: 0,
+      bestTimes: []
+    }
+    // clear local storage
+    localStorage.removeItem('clickDetectorData');
+  }
 }
 
 var thinger = new Thinger()
@@ -43,17 +52,18 @@ var Page = {
   view: function(vnode) {
     return m('div', [
       m('p', 'Here is a button.'),
-      m('button', {
+      m('button.ping', {
         onclick: thinger.ping,
       }, 'Click me!'),
+      m('button.clear', {
+        onclick: thinger.clear,
+      }, 'Clear best times'),
       m('p', 'You have clicked ', thinger.data.count, ' times. Try one more.'),
       m('ul', [
         'Top 5 Double Click Intervals:',
         thinger.data.bestTimes.map(function(t) {
           return m('li', [
-            m('span', {
-              class: 'clicktime'
-            }, [t.toString(), ' milliseconds'])
+            m('span.clicktime', [t.toString(), ' milliseconds'])
           ])
         }),
       ]),
