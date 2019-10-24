@@ -1,67 +1,67 @@
-function Thinger() {
-  var thinger = this
+function DoubleClickDetector() {
+  var dcd = this
   // Get previously stored data
   let storedData = localStorage.getItem('clickDetectorData')
   // Decode previously stored data, falsy if nonexistant
   storedData = storedData && JSON.parse(storedData)
 
   // Merge previous data over default values
-  thinger.data = Object.assign({
+  dcd.data = Object.assign({
     count: 0,
     bestTimes: []
   }, storedData || {})
-  thinger.lastTime = false
-  thinger.ping = function() {
+  dcd.lastTime = false
+  dcd.ping = function() {
     // Get the time of this click
     let currentTime = new Date()
 
     // If there is a previous click, calculate the delta
-    if (thinger.lastTime) {
-      let timeDelta = currentTime - thinger.lastTime
+    if (dcd.lastTime) {
+      let timeDelta = currentTime - dcd.lastTime
       // Store the new delta
-      thinger.data.bestTimes.push(timeDelta)
+      dcd.data.bestTimes.push(timeDelta)
       // Sort the best times
-      thinger.data.bestTimes.sort(function(a, b) {
+      dcd.data.bestTimes.sort(function(a, b) {
         return a - b
       })
       // Truncate best times to the top 5
-      thinger.data.bestTimes = thinger.data.bestTimes.slice(0, 5)
+      dcd.data.bestTimes = dcd.data.bestTimes.slice(0, 5)
     }
 
     // Store the current click time as last time for the next click
-    thinger.lastTime = currentTime
-    thinger.data.count++
+    dcd.lastTime = currentTime
+    dcd.data.count++
 
     // Store updated data in localstorage
-    localStorage.setItem('clickDetectorData', JSON.stringify(thinger.data));
+    localStorage.setItem('clickDetectorData', JSON.stringify(dcd.data));
   }
-  thinger.clear = function() {
+  dcd.clear = function() {
     // Reset session data to initial state
-    thinger.data = {
+    dcd.data = {
       count: 0,
       bestTimes: []
     }
-    // clear local storage
+    // Clear local storage
     localStorage.removeItem('clickDetectorData');
   }
 }
 
-var thinger = new Thinger()
+var dcd = new DoubleClickDetector()
 
 var Page = {
   view: function(vnode) {
     return m('div', [
       m('p', 'Here is a button.'),
       m('button.ping', {
-        onclick: thinger.ping,
+        onclick: dcd.ping,
       }, 'Click me!'),
       m('button.clear', {
-        onclick: thinger.clear,
+        onclick: dcd.clear,
       }, 'Clear best times'),
-      m('p', 'You have clicked ', thinger.data.count, ' times. Try one more.'),
+      m('p', 'You have clicked ', dcd.data.count, ' times. Try one more.'),
       m('ul', [
         'Top 5 Double Click Intervals:',
-        thinger.data.bestTimes.map(function(t) {
+        dcd.data.bestTimes.map(function(t) {
           return m('li', [
             m('span.clicktime', [t.toString(), ' milliseconds'])
           ])
