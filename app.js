@@ -56,6 +56,7 @@ var Page = {
       ]))),
       m('main[role="main"]', m('section.jumbotron.text-center', m('div.container', [
         m('h1.jumbotron-heading', 'Click the Button!'),
+        m('p', 'Test your double click speed using the button below. Your fastest times will be recorded in the high score table. Use the clear button to reset the game.'),
         m('p', [
           m('a[href="#"].btn.btn-primary.ping', {
             onclick: dcd.ping,
